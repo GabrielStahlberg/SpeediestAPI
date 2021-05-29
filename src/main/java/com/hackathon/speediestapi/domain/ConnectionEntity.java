@@ -32,6 +32,12 @@ public class ConnectionEntity implements Serializable {
     @NotNull
     private Double uploadAverage;
 
+    @Column(name = "connection_duration_minutes")
+    private Integer durationMinutes;
+
+    @Column(name = "connection_location")
+    private String location;
+
     @Column(name = "connection_date")
     private Date date = new Date();
 }

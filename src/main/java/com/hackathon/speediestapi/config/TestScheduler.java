@@ -1,6 +1,7 @@
 package com.hackathon.speediestapi.config;
 
 import com.hackathon.speediestapi.service.ConnectionService;
+import com.hackathon.speediestapi.util.UtilsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,7 @@ public class TestScheduler implements SchedulingConfigurer {
                             Optional.ofNullable(context.lastCompletionTime());
                     Instant nextExecutionTime =
                             lastCompletionTime.orElseGet(Date::new).toInstant()
-                                    .plusMillis(1000 * 60 * 60); // period
+                                    .plusMillis(1000 * 60 * UtilsImpl.periodMinutes); // period
                     return Date.from(nextExecutionTime);
                 }
         );

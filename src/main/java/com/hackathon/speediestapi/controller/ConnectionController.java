@@ -1,7 +1,9 @@
 package com.hackathon.speediestapi.controller;
 
 import com.hackathon.speediestapi.domain.ConnectionEntity;
+import com.hackathon.speediestapi.domain.PeriodicTest;
 import com.hackathon.speediestapi.service.ConnectionService;
+import com.hackathon.speediestapi.util.UtilsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -25,11 +27,17 @@ public class ConnectionController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ConnectionEntity> createPlayer(@Valid @RequestBody ConnectionEntity connection, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ConnectionEntity> createConnection(@Valid @RequestBody ConnectionEntity connection, UriComponentsBuilder uriBuilder) {
         service.createConnection(connection);
         URI uri = uriBuilder.path("/connections").buildAndExpand(connection.getId()).toUri();
 
         return ResponseEntity.created(uri).body(connection);
+    }
+
+    @PostMapping("/changePeriodTime")
+    public ResponseEntity<Void> changePeriod(@RequestBody PeriodicTest period) {
+        UtilsImpl.periodMinutes = period.getPeriod();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
