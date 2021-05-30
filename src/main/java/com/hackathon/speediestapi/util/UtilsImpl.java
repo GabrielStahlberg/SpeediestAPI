@@ -15,6 +15,8 @@ import java.util.Random;
 public final class UtilsImpl {
 
     public static Integer periodMinutes = 60;
+    public static Integer downloadMinAcceptable = 8;
+    public static Integer uploadMinAcceptable = 4;
 
     public static Double calculateGeneralAverage(List<Double> averages) {
         Double generalAverage = 0.0;

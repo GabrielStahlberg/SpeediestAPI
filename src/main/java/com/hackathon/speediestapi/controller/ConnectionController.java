@@ -2,6 +2,7 @@ package com.hackathon.speediestapi.controller;
 
 import com.hackathon.speediestapi.domain.ConnectionEntity;
 import com.hackathon.speediestapi.domain.PeriodicTest;
+import com.hackathon.speediestapi.domain.MinAcceptable;
 import com.hackathon.speediestapi.domain.dto.ConnectionStatsDTO;
 import com.hackathon.speediestapi.service.ConnectionService;
 import com.hackathon.speediestapi.util.UtilsImpl;
@@ -38,6 +39,13 @@ public class ConnectionController {
     @PostMapping("/changePeriodTime")
     public ResponseEntity<Void> changePeriod(@RequestBody PeriodicTest period) {
         UtilsImpl.periodMinutes = period.getPeriod();
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/minAcceptable")
+    public ResponseEntity<Void> changeMinAcceptable(@RequestBody MinAcceptable minAcceptable) {
+        UtilsImpl.downloadMinAcceptable = minAcceptable.getDownloadValue();
+        UtilsImpl.uploadMinAcceptable = minAcceptable.getUploadValue();
         return ResponseEntity.noContent().build();
     }
 
