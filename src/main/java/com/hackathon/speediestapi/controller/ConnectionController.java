@@ -2,6 +2,7 @@ package com.hackathon.speediestapi.controller;
 
 import com.hackathon.speediestapi.domain.ConnectionEntity;
 import com.hackathon.speediestapi.domain.PeriodicTest;
+import com.hackathon.speediestapi.domain.dto.ConnectionStatsDTO;
 import com.hackathon.speediestapi.service.ConnectionService;
 import com.hackathon.speediestapi.util.UtilsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class ConnectionController {
     public ResponseEntity<Void> changePeriod(@RequestBody PeriodicTest period) {
         UtilsImpl.periodMinutes = period.getPeriod();
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/currentConnection")
+    @Cacheable(value = "currentConnection")
+    public ResponseEntity<ConnectionStatsDTO> findConnectionStats() {
+        return ResponseEntity.ok().body(service.findConnectionStats());
     }
 
     @GetMapping
